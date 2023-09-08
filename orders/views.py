@@ -46,6 +46,14 @@ class CheckoutSuccessView(View):
             order.payment = payment
             order.is_ordered = True
             order.save()
+            
+            # Update the sold property for ordered products
+            order_products = OrderProduct.objects.filter(order=order)
+            for order_product in order_products:
+                product = order_product.product
+                product.sold += order_product.quantity  # Increment the sold property
+                product.save()
+            
             # Move the cart items to Order Product table
             cart_items = CartItem.objects.filter(user=user)
 
@@ -67,6 +75,7 @@ class CheckoutSuccessView(View):
                 # Reduce the quantity of the sold products
                 product = Product.objects.get(id=item.product_id)
                 product.stock -= item.quantity
+                product.sold += item.quantity  # Increment the 'sold' property
                 product.save()
 
             # Clear cart
@@ -89,6 +98,7 @@ class CheckoutSuccessView(View):
             messages.success(request,'Something Went Wrong')
         
         return render(request, 'orders/success.html')
+
 
 
 @method_decorator(csrf_exempt, name='dispatch')

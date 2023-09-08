@@ -35,7 +35,9 @@
 		<div class="container pl-3">
 			<h1 style="color: black;">NEW ARRIVALS</h1>
 			<h1><span style="color: coral;" >Best Prices</span> This Season</h1>
-			<p><span style="color: #ff6b36; font-weight:800; font-size:118%">Orange</span> <span class="text-capitalize" style="color: black;"><span style="font-weight: 500;color:black;">offers the best products for the most </span><em class="" style="font-weight: 900; color:#ff6b36 ;font-size:118%">affordable prices</em><em style="font-weight: bold;"> !!!</em></span></p>
+			<p>
+				<span style="color: #ff6b36; font-weight:800; font-size:118%">Orange</span> <span class="text-capitalize" style="color: black;"><span style="font-weight: 600;color:black;">offers the best products for the most </span><span class="" style="font-weight: 900; color:#ff6b36 ;font-size:118%">affo<span style="color: #1e1e1e;"></span>rdable price<span style="color: #1e1e1e;">s</span></span><span style="font-weight: 900;font-size:118%;color:black;">!!!</span></span>
+			</p>
 			<a href="{% url 'store' %}"><button style="font-weight: 900;border-radius:7px;">Shop Now</button></a>
 		</div>
 	</section>
@@ -82,7 +84,7 @@
 
 
   
-	
+
 
 
 <!-- ========================= SECTION MAIN ========================= -->
@@ -102,38 +104,140 @@
 
 <!-- ========================= SECTION MAIN END// ========================= -->
 
-<!-- ========================= SECTION  ========================= -->
+<!-- ========================= Popular SECTION  ========================= -->
 <section class="section-name padding-y-sm">
-<div class="container">
-
-<header class="section-heading">
-	<h3 class="section-title">Popular products</h3>
-</header><!-- sect-heading -->
-
-
-
-
-
-
-
-<div class="row">
-	{% for product in products %}
-	<div class="col-md-3">
-		<div class="card card-product-grid">
-			<a href="{{product.get_url}}" class="img-wrap"> <img src="{{ product.images.url }}"> </a>
-			<figcaption class="info-wrap">
-				<a href="{{product.get_url}}" class="title">{{ product.product_name }}</a>
-				<div class="price mt-1">$ {{ product.price }}</div> <!-- price-wrap.// -->
-			</figcaption>
+    <div class="container">
+        <div class="container text-center mt-5 py-5">
+			<h3>Poular Products</h3>
+			<hr class="mx-auto" style="border-radius: 2px;">
+			<p>Here you can check out our most Popular products</p>
 		</div>
-	</div> <!-- col.// -->
-	{% endfor %}
-</div> <!-- row.// -->
 
-</div><!-- container // -->
+        <div class="row">
+            {% for product in products|dictsortreversed:"sold" %}
+            {% if forloop.counter <= 4 %} {# Limit to the top 4 products #}
+            <div class="col-md-3">
+                <div class="card card-product-grid">
+                    <a href="{{ product.get_url }}" class="img-wrap"> <img src="{{ product.images.url }}"> </a>
+                    <figcaption class="info-wrap">
+                        <a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
+                        <div class="price mt-1">$ {{ product.price }}</div> <!-- price-wrap.// -->
+                    </figcaption>
+                </div>
+            </div> <!-- col.// -->
+            {% endif %}
+            {% endfor %}
+        </div> <!-- row.// -->
+
+    </div><!-- container // -->
 </section>
 <!-- ========================= SECTION  END// ========================= -->
 
+      <!--Banner-->
+      <section id="banner" class="my-5 py-5" style="background-image: url({% static 'images/banners/banner.jpeg' %});">
+        <div class="container">
+          <h4 class="bg-dark" style="font-weight: bold;width: max-content;padding:1%;border-radius:10px;filter: brightness(1.3);">MID SEASON'S SALE</h4>
+          <h1 class="bg-dark" style="width: max-content;padding:1%;border-radius:10px;">Autumn Collection <br> UP to <span style="color: coral ;font-weight:900" class="text-outline">30%</span> OFF</h1>
+          <a href="{% url 'store' %}"><button class="text-uppercase" style="border-radius:7px;"><span class="" style="font-weight: 900;font-size:118%">Shop Now</span></button></a> 
+        </div>
+      </section>
+
+
+
+
+
+<!-- ========================= Coats SECTION  ========================= -->
+<section class="section-name padding-y-sm">
+    <div class="container">
+        <div class="container text-center mt-5 py-5">
+            <h3>Dresses & Coats</h3>
+            <hr class="mx-auto" style="border-radius: 2px;">
+            <p>Here you can check out our amazing Coats</p>
+        </div>
+
+        <div class="row">
+            {% for product in products|dictsortreversed:"sold" %}
+            {% if forloop.counter <= 4 and product.category.category_name == "Coat" %} {# Limit to the top 4 products and filter by category #}
+            <div class="col-md-3">
+                <div class="card card-product-grid">
+                    <a href="{{ product.get_url }}" class="img-wrap"> <img src="{{ product.images.url }}"> </a>
+                    <figcaption class="info-wrap">
+                        <a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
+                        <div class="price mt-1">$ {{ product.price }}</div> <!-- price-wrap.// -->
+                    </figcaption>
+                </div>
+            </div> <!-- col.// -->
+            {% endif %}
+            {% endfor %}
+        </div> <!-- row.// -->
+
+    </div><!-- container // -->
+</section>
+<!-- ========================= SECTION  END// ========================= -->
+
+
+<!-- ========================= Shoes SECTION  ========================= -->
+<section class="section-name padding-y-sm">
+    <div class="container">
+        <div class="container text-center mt-5 py-5">
+            <h3>Shoes</h3>
+            <hr class="mx-auto" style="border-radius: 2px;">
+            <p>Here you can check out our amazing Shoes</p>
+        </div>
+
+        <div class="row">
+            {% for product in products|dictsortreversed:"sold" %}
+            {% if forloop.counter <= 4 and product.category.category_name == "Shoes" %} {# Limit to the top 4 products of the "Shoes" category #}
+            <div class="col-md-3">
+                <div class="card card-product-grid">
+                    <a href="{{ product.get_url }}" class="img-wrap"> <img src="{{ product.images.url }}"> </a>
+                    <figcaption class="info-wrap">
+                        <a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
+                        <div class="price mt-1">$ {{ product.price }}</div> <!-- price-wrap.// -->
+                    </figcaption>
+                </div>
+            </div> <!-- col.// -->
+            {% endif %}
+            {% endfor %}
+        </div> <!-- row.// -->
+
+    </div><!-- container // -->
+</section>
+<!-- ========================= SECTION  END// ========================= -->
+
+
+
+
+
+
+<!-- ========================= Watches SECTION  ========================= -->
+<section class="section-name padding-y-sm">
+    <div class="container">
+        <div class="container text-center mt-5 py-5">
+            <h3>Best Watches</h3>
+            <hr class="mx-auto" style="border-radius: 2px;">
+            <p>Check out our unique Watches</p>
+        </div>
+
+        <div class="row">
+            {% for product in products|dictsortreversed:"sold" %}
+            {% if forloop.counter <= 4 and product.category.category_name == "Watches" %} {# Limit to the top 4 products of the "Shoes" category #}
+            <div class="col-md-3">
+                <div class="card card-product-grid">
+                    <a href="{{ product.get_url }}" class="img-wrap"> <img src="{{ product.images.url }}"> </a>
+                    <figcaption class="info-wrap">
+                        <a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
+                        <div class="price mt-1">$ {{ product.price }}</div> <!-- price-wrap.// -->
+                    </figcaption>
+                </div>
+            </div> <!-- col.// -->
+            {% endif %}
+            {% endfor %}
+        </div> <!-- row.// -->
+
+    </div><!-- container // -->
+</section>
+<!-- ========================= SECTION  END// ========================= -->
 
 
 
