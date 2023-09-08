@@ -5,17 +5,100 @@
 
 {% block content %}
 
+{% comment %} migrating from here  {% endcomment %}
+
+
+
+      {% comment %} Original 
+	  
+	  <!--Home-->
+      <section id="home" style="background-image: url('{% static 'images/banners/back2.jpeg' %}');>
+        <div class="container">
+          <h5>NEW ARRIVALS</h5>
+          <h1><span>Best Prices</span> This Season</h1>
+          <p>Orange offers the best products for the most affordable prices</p>
+         <a href="shop.php"><button>Shop Now</button></a> 
+        </div>
+      </section> 
+	  
+	  {% endcomment %}
+
+
+	  <!-- Home -->
+	<section id="home"
+		style="
+		background-image: url('{% static 'images/banners/back.jpeg' %}'); 
+		background-size: cover;
+		background-position-x: 200px;
+		background-position-y: -25px;
+		width: 100%;
+    	height: 85vh;" class="pb-5 pl-5">
+		<div class="container pb-5 pl-4">
+			<h1 style="color: black;">NEW ARRIVALS</h1>
+			<h1><span style="color: coral;">Best Prices</span> This Season</h1>
+			<p><span style="color: coral; font-weight:bold; font-size:118%">Orange</span> <span class="text-capitalize" style="color: black;"><span style="font-weight: 500;color:black;">offers the best products for the most </span><em  style="font-weight: bold; color:black;text-decoration:underline;">affordable prices</em><em style="font-weight: bold;"> !!!</em></span></p>
+			<a href="{% url 'store' %}"><button style="font-weight: 900;border-radius:7px;">Shop Now</button></a>
+		</div>
+	</section>
+  
+
+	<!-- Brand -->
+	<section id="brand" class="container">
+		<div class="container">
+			<div class="container">
+				<div class="row m-0">
+					<img class="img-fluid col-lg-3 col-md-6 col-sm-12" src="{% static 'images/assets/brand1.jpeg' %}" />
+					<img class="img-fluid col-lg-3 col-md-6 col-sm-12" src="{% static 'images/assets/brand2.jpeg' %}" />
+					<img class="img-fluid col-lg-3 col-md-6 col-sm-12" src="{% static 'images/assets/brand3.jpeg' %}" />
+					<img class="img-fluid col-lg-3 col-md-6 col-sm-12" src="{% static 'images/assets/brand4.jpeg' %}" />
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+<!-- New Section -->
+<section id="new" class="w-100">
+	<div class="row p-0 m-0">
+	  {% for product in products|slice:":3" %}
+		<div class="one col-lg-4 col-md-12 col-sm-12 p-0">
+			<img class="img-fluid" src="{{ product.images.url }}" />
+		  <div class="details">
+			<h2>{{ product.product_name }}</h2>
+			<a href="{% url 'single_product' product_id=product.product_id %}">
+			  <button class="text-uppercase">Shop Now</button>
+			</a> 
+		  </div>
+		</div>
+	  {% empty %}
+		<!-- Display a message when there are no "New" products -->
+		<div class="container text-center mt-5 py-5">
+		  <p>No "New" products available at the moment.</p>
+		</div>
+	  {% endfor %}
+	</div>
+</section>
+
+  
+	
+
 
 <!-- ========================= SECTION MAIN ========================= -->
 <section class="section-intro padding-y-sm">
 <div class="container">
 
-<div class="intro-banner-wrap">
+{% comment %} <div class="intro-banner-wrap">
 	<img src="{% static 'images/banners/cover.png' %}" class="img-fluid rounded">
-</div>
+</div> {% endcomment %}
 
 </div> <!-- container //  -->
 </section>
+
+
+
+
+
 <!-- ========================= SECTION MAIN END// ========================= -->
 
 <!-- ========================= SECTION  ========================= -->
@@ -25,6 +108,11 @@
 <header class="section-heading">
 	<h3 class="section-title">Popular products</h3>
 </header><!-- sect-heading -->
+
+
+
+
+
 
 
 <div class="row">
