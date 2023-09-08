@@ -42,6 +42,23 @@
 
 {% comment %} logo style  {% endcomment %}
 <style>
+
+  .sticky-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white; /* Set the background color as needed */
+    z-index: 1000; /* Set an appropriate z-index to layer it above other content */
+    /* Add any other styling you need for your sticky header */
+  }
+
+  .text-outline {
+    -webkit-text-stroke: 1px white; /* Width and color of the outline */
+    
+  }
+
+
   .capitalize {
     text-transform: capitalize;
     /* Force lowercase text */
@@ -111,8 +128,8 @@
   }
 
   .logout-text:hover {
-    color: #2f59ff;
-    background-color: #343a40;
+    color: #5073ff;
+    background-color: #292d31;
     padding: 5px;
     border-radius: 3px;
     font-weight: bold;
@@ -126,7 +143,7 @@
 
   .register-text:hover {
     color: #ff4800;
-    background-color: #343a40;
+    background-color: #292d31;
     padding: 5px;
     border-radius: 3px;
     font-weight: bold;
@@ -162,21 +179,21 @@
 
 .cart-icon-div {
   background-color: transparent;
-  transition: background-color 0.3s ease; /* Add a smooth transition effect */
+  transition: background-color 0.3s ease;
 }
 
 .cart-icon {
   color: inherit;
-  transition: color 0.3s ease; /* Add a smooth transition effect */
+  transition: color 0.3s ease; 
 }
 
 /* Hover styles */
 .cart-icon-ancor:hover .cart-icon-div {
-  background-color: black; /* Change background color to black on hover */
+  background-color: #292d31;
 }
 
 .cart-icon-ancor:hover .cart-icon {
-  color: #ff4800; /* Change icon color to #ff4800 on hover */
+  color: #ff4800; 
 }
 
 </style>
