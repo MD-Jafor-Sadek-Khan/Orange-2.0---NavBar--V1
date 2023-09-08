@@ -132,8 +132,8 @@
     font-weight: bold;
   }
 
-  .cart-icon {
-    color: gray !important;
+  <!-- .cart-icon {
+    color: coral !important;
   }
 
   .cart-icon:hover {
@@ -141,13 +141,44 @@
   }
 
   .cart-icon-div:hover {
+    background-color: black;
+  }
+  .cart-icon-div {
     background-color: #343a40;
   }
 
   .cart-icon-ancor {
     text-decoration: none;
+    color: none;
 
-  }
+  } -->
+
+
+  /* Initial styles for the anchor tag and its children */
+.cart-icon-ancor {
+  text-decoration: none;
+  color: inherit;
+}
+
+.cart-icon-div {
+  background-color: transparent;
+  transition: background-color 0.3s ease; /* Add a smooth transition effect */
+}
+
+.cart-icon {
+  color: inherit;
+  transition: color 0.3s ease; /* Add a smooth transition effect */
+}
+
+/* Hover styles */
+.cart-icon-ancor:hover .cart-icon-div {
+  background-color: black; /* Change background color to black on hover */
+}
+
+.cart-icon-ancor:hover .cart-icon {
+  color: #ff4800; /* Change icon color to #ff4800 on hover */
+}
+
 </style>
 
 
