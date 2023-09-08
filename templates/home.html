@@ -2,7 +2,6 @@
 
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
 
 {% comment %} migrating from here  {% endcomment %}
@@ -60,25 +59,27 @@
 
 <!-- New Section -->
 <section id="new" class="w-100">
-	<div class="row p-0 m-0">
-	  {% for product in products|slice:":3" %}
-		<div class="one col-lg-4 col-md-12 col-sm-12 p-0">
-			<img class="img-fluid" src="{{ product.images.url }}" />
-		  <div class="details">
-			<h2>{{ product.product_name }}</h2>
-			<a href="{% url 'single_product' product_id=product.product_id %}">
-			  <button class="text-uppercase">Shop Now</button>
-			</a> 
-		  </div>
-		</div>
-	  {% empty %}
-		<!-- Display a message when there are no "New" products -->
-		<div class="container text-center mt-5 py-5">
-		  <p>No "New" products available at the moment.</p>
-		</div>
-	  {% endfor %}
-	</div>
+    <div class="row p-0 m-0">
+        {% for product in products|dictsortreversed:"modified_date"|slice:":3" %}
+            <div class="one col-lg-4 col-md-12 col-sm-12 p-0">
+                <img class="img-fluid" src="{{ product.images.url }}" />
+                <div class="details">
+                    <h2>{{ product.product_name }}</h2>
+                    <a href="{% url 'products_by_category' category_slug=product.category.slug %}">
+                        <button class="text-uppercase">Shop Now</button>
+                    </a>
+                </div>
+            </div>
+        {% empty %}
+            <!-- Display a message when there are no "New" products -->
+            <div class="container text-center mt-5 py-5">
+                <p>No "New" products available at the moment.</p>
+            </div>
+        {% endfor %}
+    </div>
 </section>
+
+
 
   
 	
