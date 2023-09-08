@@ -2,6 +2,8 @@ from django.shortcuts import render
 from store.models import Product
 
 def home(request):
+    all_products = Product.objects.all()
+    
     # Define category names and corresponding product counts in a dictionary
     category_data = {
         "Bags": 4,
@@ -23,5 +25,6 @@ def home(request):
 
     context = {
         'category_products': category_products,
+        'products': all_products,
     }
     return render(request, 'home.html', context)
