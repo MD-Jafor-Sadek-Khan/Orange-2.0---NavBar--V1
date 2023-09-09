@@ -94,7 +94,7 @@
   
   /* Gallery thumbnail image */
   .elevatezoom-gallery img {
-    max-width: 100px; /* Adjust thumbnail size as needed */
+    max-width: max-content; /* Adjust thumbnail size as needed */
     border: 1px solid #ccc;
     transition: border-color 0.3s ease;
   }

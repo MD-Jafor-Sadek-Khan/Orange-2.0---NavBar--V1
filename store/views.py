@@ -18,12 +18,13 @@ from bs4 import BeautifulSoup
 
 
 
+# 1st api key (account:dont know) : AIzaSyBuTUxIT6tPL6uqe2B6RfpPNvoBCyxk6lc
 
-
+# 2nd api key (account:Orange) : AIzaSyDeZJsnOcb5sgBHZIVF43da9pSCDUPLAso 
 
 def get_video_details(search_query):
     base_url = f"https://www.googleapis.com/youtube/v3/search"
-    api_key = "AIzaSyBuTUxIT6tPL6uqe2B6RfpPNvoBCyxk6lc"  # Replace with your actual API key
+    api_key = "AIzaSyDeZJsnOcb5sgBHZIVF43da9pSCDUPLAso"  # Replace with your actual API key
 
     params = {
         'part': 'snippet',
@@ -37,36 +38,35 @@ def get_video_details(search_query):
 
     video_details = []
 
-    for item in data['items']:
-        video_title = item['snippet']['title']
-        video_id = item['id']['videoId']
+    if 'items' in data:
+        for item in data['items']:
+            video_title = item['snippet']['title']
+            video_id = item['id']['videoId']
 
-        # Fetch video details to get the like count
-        video_details_url = f"https://www.googleapis.com/youtube/v3/videos"
-        video_params = {
-            'part': 'statistics',
-            'id': video_id,
-            'key': api_key
-        }
+            # Fetch video details to get the like count for each video
+            video_details_url = f"https://www.googleapis.com/youtube/v3/videos"
+            video_params = {
+                'part': 'statistics',
+                'id': video_id,
+                'key': api_key
+            }
 
-        video_response = requests.get(video_details_url, params=video_params)
-        video_data = video_response.json()
-        
-        # Check if 'likeCount' exists in 'statistics'; set to 0 if not found
-        try:
-            like_count = video_data['items'][0]['statistics']['likeCount']
-        except KeyError:
-            like_count = 0
+            video_response = requests.get(video_details_url, params=video_params)
+            video_data = video_response.json()
+            
+            # Check if 'likeCount' exists in 'statistics'; set to 0 if not found
+            try:
+                like_count = video_data['items'][0]['statistics']['likeCount']
+            except KeyError:
+                like_count = 0
 
-        video_details.append({
-            'title': video_title,
-            'video_id': video_id,
-            'like_count': like_count,
-        })
+            video_details.append({
+                'title': video_title,
+                'video_id': video_id,
+                'like_count': like_count,
+            })
 
     return video_details
-
-
 
 
 

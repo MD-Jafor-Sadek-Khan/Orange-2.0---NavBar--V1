@@ -45,6 +45,9 @@
                     </article>
                     <!-- gallery-wrap .end// -->
                 </aside>
+                
+                
+                
                 <main class="col-md-6 border-left">
                     <form action="{% url 'add_cart' single_product.id %}" method="POST">
                         {% csrf_token %}
@@ -52,10 +55,26 @@
                             <h2 class="title">{{ single_product.product_name }}</h2>
                             <div class="rating-star">
                                 <span>
-                                    <i
-                                        class="fa fa-star{% if single_product.averageReview < 0.5 %}-o{% elif single_product.averageReview >= 0.5 and single_product.averageReview < 1 %}-half-o {% endif %}"
-                                        aria-hidden="true"
-                                    ></i>
+                                  <i
+                                  class="fa fa-star{% if single_product.averageReview < 0.5 %}-o{% elif single_product.averageReview >= 0.5 and single_product.averageReview < 1 %}-half-o {% endif %}"
+                                  aria-hidden="true"
+                                ></i>
+                                <i
+                                  class="fa fa-star{% if single_product.averageReview < 1.5 %}-o{% elif single_product.averageReview >= 1.5 and single_product.averageReview < 2 %}-half-o {% endif %}"
+                                  aria-hidden="true"
+                                ></i>
+                                <i
+                                  class="fa fa-star{% if single_product.averageReview < 2.5 %}-o{% elif single_product.averageReview >= 2.5 and single_product.averageReview < 3 %}-half-o {% endif %}"
+                                  aria-hidden="true"
+                                ></i>
+                                <i
+                                  class="fa fa-star{% if single_product.averageReview < 3.5 %}-o{% elif single_product.averageReview >= 3.5 and single_product.averageReview < 4 %}-half-o {% endif %}"
+                                  aria-hidden="true"
+                                ></i>
+                                <i
+                                  class="fa fa-star{% if single_product.averageReview < 4.5 %}-o{% elif single_product.averageReview >= 4.5 and single_product.averageReview < 5 %}-half-o {% endif %}"
+                                  aria-hidden="true"
+                                ></i>
                                     <!-- More rating stars... -->
                                     <span>{{single_product.countReview}} reviews</span>
                                 </span>
@@ -74,18 +93,56 @@
                             <hr />
                             {% if single_product.stock <= 0 %}
                             <h5 class="text-danger">Out of Stock</h5>
+                             <!-- Button trigger modal -->
+                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                              Related Videos
+                            </button>
                             {% elif in_cart %}
                             <p>Item Already added to cart</p>
                             <a class="btn btn-warning" href="{% url 'cart'%}">
                                 <span class="text">View Cart</span>
                                 <i class="fas fa-shopping-cart"></i>
                             </a>
+                             <!-- Button trigger modal -->
+                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                              Related Videos
+                            </button>
                             {% else %}
                             <button type="submit" class="btn btn-primary">
                                 <span class="text">Add to Cart</span>
                                 <i class="fas fa-shopping-cart"></i>
                             </button>
+                             <!-- Button trigger modal -->
+                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                              Related Videos
+                            </button>
                             {% endif %}
+
+                              <!-- Modal -->
+                              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content" style="width: 200%;">
+                                    <div class="modal-body">
+                                      <!-- Add video player section -->
+                                      <div class="container mt-5">
+                                        <div class="row">
+                                            {% for video in video_details %}
+                                            <div class="col-md-4" style="width:100%;">
+                                                <h5 style="font-weight: 700;">{{ video.title }}</h5>
+                                                <iframe src="https://www.youtube.com/embed/{{ video.video_id }}" frameborder="0" allowfullscreen></iframe>
+                                                <p><i class="far fa-thumbs-up" style="color: rgb(90, 90, 255);"></i> <span style="font-weight: 700;">{{ video.like_count }}</span></p>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                      </div>
+
+                                    </div>
+                                    <div class="modal-footer d-flex justify-content-center align-items-center">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                         </article>
                         <!-- product-info-aside .// -->
                     </form>
@@ -302,30 +359,31 @@
 <!-- ========================= SECTION CONTENT END// ========================= -->
 
 <script>
-  $(document).ready(function () {
-      // Initialize ElevateZoom on the main image
-      $(".zoom-img").elevateZoom({
-          gallery: "small-img-group",
-          cursor: "pointer",
-          galleryActiveClass: "active",
-          imageCrossfade: true,
-      });
+    $(document).ready(function () {
+        // Initialize ElevateZoom on the main image
+        $(".zoom-img").elevateZoom({
+            gallery: "small-img-group",
+            cursor: "pointer",
+            galleryActiveClass: "active",
+            imageCrossfade: true,
+        });
+  
+        // Handle click on small images for image switching
+        $(".zoom-img-gallery").on("click", function (e) {
+            e.preventDefault();
+            var largeImage = $(this).data("zoom-image");
+            $("#mainImg").attr("src", $(this).data("image"));
+            $(".zoom-img").data("zoom-image", largeImage).elevateZoom();
+        });
+  
+        // Additional code for image zoom interaction (if needed)
+        // ...
+  
+        // Additional code for image switching (if needed)
+        // ...
+    });
+  </script>
 
-      // Handle click on small images for image switching
-      $(".zoom-img-gallery").on("click", function (e) {
-          e.preventDefault();
-          var largeImage = $(this).data("zoom-image");
-          $("#mainImg").attr("src", $(this).data("image"));
-          $(".zoom-img").data("zoom-image", largeImage).elevateZoom();
-      });
-
-      // Additional code for image zoom interaction (if needed)
-      // ...
-
-      // Additional code for image switching (if needed)
-      // ...
-  });
-</script>
 
 
 
