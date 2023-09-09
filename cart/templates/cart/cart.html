@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 
-<section class="section-content padding-y bg">
-  <div class="container">
+<section class="section-content padding-y bg mt-5 pt-5">
+  <div class="container pt-5">
     <!-- ============================ COMPONENT 1 ================================= -->
     {% if not cart_items %}
     <h2 class="text-center">Your Shopping Cart is Empty</h2>
@@ -16,10 +16,10 @@
           <table class="table table-borderless table-shopping-cart">
             <thead class="text-muted">
               <tr class="small text-uppercase">
-                <th scope="col">Product</th>
-                <th scope="col" width="120">Quantity</th>
-                <th scope="col" width="120">Price</th>
-                <th scope="col" class="text-right" width="200"></th>
+                <th scope="col" style="color:white;font-weight:800;width:max-content;font-size: 120%;" class="bg-dark rounded-left">Product</th>
+                <th scope="col" width="120" style="color:white;font-weight:800;font-size: 120%;" class="bg-dark">Quantity</th>
+                <th scope="col" width="120" style="color:white;font-weight:800;width:max-content;font-size: 120%;" class="bg-dark rounded-right">Price</th>
+                <th scope="col" class="text-right rounded" width="200" style="font-weight: 800;color:white;font-size: 120%;background-color: coral;">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -37,7 +37,8 @@
                       <a
                         href="{{ cart_item.product.get_url }}"
                         class="title text-dark"
-                        >{{ cart_item.product.product_name }}</a
+                        >
+                        <span style="color: black;font-weight: 800;">{{ cart_item.product.product_name }}</span></a
                       >
                     </figcaption>
                   </figure>
@@ -83,8 +84,10 @@
                 </td>
                 <td>
                   <div class="price-wrap">
-                    <var class="price">$ {{ cart_item.sub_total }}</var>
-                    <small class="text-muted">
+                    <var class="price"><span style="color: darkgreen;font-weight: 700;">$</span>
+                      <span style="color: black;font-weight: 800;">{{ cart_item.sub_total }}</span>
+                       </var>
+                    <small style="font-weight: 600;color:#a6a6a6">
                       $ {{ cart_item.product.price }} each
                     </small>
                   </div>
@@ -111,27 +114,27 @@
         <div class="card">
           <div class="card-body">
             <dl class="dlist-align">
-              <dt>Total price:</dt>
-              <dd class="text-right">$ {{total}}</dd>
+              <dt style="font-weight: 800;">Total price:</dt>
+              <dd class="text-right"><span style="color: darkgreen;font-weight: 700;">$</span> <span style="color: black;font-weight: 800;">{{total}}</span></dd>
             </dl>
             <dl class="dlist-align">
-              <dt>Tax:</dt>
-              <dd class="text-right">$ {{tax}}</dd>
+              <dt style="font-weight: 800;">Tax:</dt>
+              <dd class="text-right"><span style="color: darkgreen;font-weight: 700;">$</span>  <span style="color: black;font-weight: 800;">{{tax}}</span></dd>
             </dl>
             <dl class="dlist-align">
-              <dt>Grand Total:</dt>
+              <dt style="font-weight: 800;">Grand Total:</dt>
               <dd class="text-right text-dark b">
-                <strong>$ {{grand_total}}</strong>
+                <strong><span style="color: darkgreen;font-weight: 700;">$</span> <span style="color: black;font-weight: 800;">{{grand_total}}</span></strong>
               </dd>
             </dl>
-            <hr />
+            <hr class="rounded"/>
             <p class="text-center mb-3">
               <img
                 src="{% static './images/misc/payments.png' %}"
                 height="26"
               />
             </p>
-            <a href="{% url 'checkout' %}" class="btn btn-primary btn-block">
+            <a href="{% url 'checkout' %}" class="btn custom-button btn-block">
               Checkout
             </a>
             <a href="{% url 'store' %}" class="btn btn-light btn-block"

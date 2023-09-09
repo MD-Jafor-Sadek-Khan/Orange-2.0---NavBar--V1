@@ -86,11 +86,11 @@
 
                             <p>{{ single_product.description }}</p>
 
-                            <hr />
+                            <hr class="rounded"/>
                             <p>Total Product in Stock :<b>{{ single_product.stock }}</b></p>
                             <small></small>
 
-                            <hr />
+                            <hr class="rounded"/>
                             {% if single_product.stock <= 0 %}
                             <h5 class="text-danger">Out of Stock</h5>
                              <!-- Button trigger modal -->

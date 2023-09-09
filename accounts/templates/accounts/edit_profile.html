@@ -6,7 +6,7 @@
 <section class="section-conten padding-y bg">
 
 {% include 'includes/alerts.html' %}
-<div class="container">
+<div class="container mt-5 pt-5">
 	<div class="row">
 	{% include 'accounts/dashboard_sidebar.html' %}
 	<main class="col-md-9">
@@ -17,57 +17,86 @@
 		</header>
 		<div class="card-body">
 			<div class="text-right">
-				{% if userprofile.profile_picture %}
-							<img src="{{userprofile.profile_picture.url}}" alt="User Profile Picture" width="50" height="50" style="border-radius:50%;">
-						{% endif %}
+				<div class="d-flex justify-content-between align-items-center">
+					<div class="d-flex justify-content-center align-items-start flex-column">
+						<h3>&nbsp;&nbsp;Current Information</h3>
+					<hr class="ml-3 mb-3 rounded">
+					</div>
+					<a href="#section1" class="btn custom-button">Edit Information</a>
+				</div>
+				<div class="card-body d-flex justify-content-center align-items-start flex-column bg-dark text-white rounded">
+					{% if userprofile.profile_picture %}
+						<div class="d-flex justify-content-center align-items-center">
+							<img src="{{userprofile.profile_picture.url}}" alt="User Profile Picture" width="80" height="80" style="border-radius:50%;">
+							<h3 class=" text-capitalize ml-2" style="color: #ccf5ff;font-weight: 800;">{{user.full_name}}</h3>
+						</div>
+					{% endif %}
+					<p class="mb-0 font-weight-bold mt-4"><span style="color: coral;font-weight: 800;">User-Name:</span>&nbsp;&nbsp;&nbsp;{{user.username}}</p>
+					<p class="mb-0 font-weight-bold mt-1"><span style="color: coral;font-weight: 800;">Your Email:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{user.email}}</p>
+					<p class="font-weight-bold mt-2">
+						<span style="color: coral;font-weight: 800;">Phone:</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{user.phone_number}}</p>
+					<p class="font-weight-bold text-capitalize">
+						<span style="color: coral;font-weight: 800;">Address:</span> 
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						{{ user.userprofile.address_line_1 }} {% if user.userprofile.address_line_2 %}{{ user.userprofile.address_line_2 }}{% endif %}</p>
+						<p class="mb-0 font-weight-bold mt-1"><span style="color: coral;font-weight: 800;">Date Joined:</span> 
+							&nbsp;{{user.date_joined}}</p>
+						<p class="mb-0 font-weight-bold mt-1"><span style="color: coral;font-weight: 800;">Last Login:</span>
+							&nbsp;&nbsp;&nbsp;&nbsp;{{user.last_login}}</p>
+
+				</div>
 			</div>
-			<div class="row">
+			<div class="row mt-5 pt-5" id="section1">
+				<div class="d-flex justify-content-center align-items-start flex-column">
+					<h3>&nbsp;&nbsp;Edit Your Information</h3>
+				<hr class="ml-3 mb-3 rounded">
+				</div>
 			<div class="col-md-12">
 				<form action="{% url 'edit_profile' %}" method="POST" enctype="multipart/form-data">
 					{% csrf_token %}
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label>First Name</label>
+							<label  style="font-weight:700;">First Name</label>
 							{{user_form.first_name}}
 						</div>
 						<div class="form-group col-md-6">
-							<label>Last Name</label>
+							<label  style="font-weight:700;">Last Name</label>
 							{{user_form.last_name}}
 						</div>
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label>Phone Number</label>
+							<label style="font-weight:700;">Phone Number</label>
 							{{user_form.phone_number}}
 						</div>
 						<div class="form-group col-md-6">
-							<label>Profile Picture</label>
+							<label style="font-weight:700;">Profile Picture</label>
 							{{profile_form.profile_picture}}
 						</div>
 					</div>
 					<div class="form-group">
-						<label>Address Line 1</label>
+						<label style="font-weight:700;">Address Line 1</label>
 						{{profile_form.address_line_1}}
 					</div>
 					<div class="form-group">
-						<label>Address Line 2</label>
+						<label style="font-weight:700;">Address Line 2</label>
 						{{profile_form.address_line_2}}
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-4">
-							<label>City</label>
+							<label style="font-weight:700;">City</label>
 							{{profile_form.city}}
 						</div>
 						<div class="form-group col-md-4">
-							<label>State</label>
+							<label style="font-weight:700;">State</label>
 							{{profile_form.state}}
 						</div>
 						<div class="form-group col-md-4">
-							<label>Country</label>
+							<label style="font-weight:700;">Country</label>
 							{{profile_form.country}}
 						</div>
 					</div>
-					<input type="submit" value="Save" class="btn btn-primary">
+					<input type="submit" value="Save" class="btn custom-button">
 				</form>
 			</div>
 

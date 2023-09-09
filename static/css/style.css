@@ -395,7 +395,11 @@ footer .copyright img{
     margin: 3px 5px;
     font-size: 1.5rem;
 }
-
+.brand-invoice{
+    color:coral;
+    margin: 3px 5px;
+    font-size: 1.5rem;
+}
 
 .small-img-group{
     display: flex;
@@ -716,6 +720,20 @@ th:last-child{
     font-size: 20px;
     font-weight: 900;
 }
+/* CSS for the featured products grid */
+.featured-products-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns with equal width */
+    gap: 10px; /* Adjust the gap between grid items as needed */
+}
+
+/* Style for individual featured product images */
+.featured-product {
+    width: 100%; /* Ensure images take up the full column width */
+    max-width: 100%; /* Responsive sizing */
+    height: auto; /* Maintain image aspect ratio */
+}
+
 
 @media screen and (max-width:576px) {
 .w-sm-50

@@ -32,17 +32,18 @@ Already verified? <a href="{% url 'login' %}">Login</a>
           </div> <!-- form-group// -->
 
           <div class="form-group">
-          	<a href="{% url 'forgotPassword' %}" class="float-right">Forgot password?</a>
+          	<a href="{% url 'forgotPassword' %}" class="float-right link" style="color:coral;font-weight:800;">Forgot password?</a>
 
           </div> <!-- form-group form-check .// -->
           <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block"> Login  </button>
+            <button type="submit" class="custom-button btn btn-block">Login</button>
+
           </div> <!-- form-group// -->
       </form>
       </div> <!-- card-body.// -->
     </div> <!-- card .// -->
 
-     <p class="text-center mt-4">Don't have account? <a href="{% url 'register' %}">Sign up</a></p>
+     <p class="text-center mt-4">Don't have account? <a href="{% url 'register' %}" style="color:coral;font-weight:800;" class="link">Sign up</a></p>
      <br><br>
 <!-- ============================ COMPONENT LOGIN  END.// ================================= -->
 {% endif %}
