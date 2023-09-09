@@ -1,3 +1,4 @@
+import requests
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, ReviewRating
 from category.models import Category
@@ -10,6 +11,63 @@ from django.http import HttpResponse
 from .forms import ReviewForm
 from django.contrib import messages
 from orders.models import OrderProduct
+
+
+import requests
+from bs4 import BeautifulSoup
+
+
+
+
+
+
+def get_video_details(search_query):
+    base_url = f"https://www.googleapis.com/youtube/v3/search"
+    api_key = "AIzaSyBuTUxIT6tPL6uqe2B6RfpPNvoBCyxk6lc"  # Replace with your actual API key
+
+    params = {
+        'part': 'snippet',
+        'maxResults': 2,  # Adjust the number of results as needed
+        'q': search_query,
+        'key': api_key
+    }
+
+    response = requests.get(base_url, params=params)
+    data = response.json()
+
+    video_details = []
+
+    for item in data['items']:
+        video_title = item['snippet']['title']
+        video_id = item['id']['videoId']
+
+        # Fetch video details to get the like count
+        video_details_url = f"https://www.googleapis.com/youtube/v3/videos"
+        video_params = {
+            'part': 'statistics',
+            'id': video_id,
+            'key': api_key
+        }
+
+        video_response = requests.get(video_details_url, params=video_params)
+        video_data = video_response.json()
+        
+        # Check if 'likeCount' exists in 'statistics'; set to 0 if not found
+        try:
+            like_count = video_data['items'][0]['statistics']['likeCount']
+        except KeyError:
+            like_count = 0
+
+        video_details.append({
+            'title': video_title,
+            'video_id': video_id,
+            'like_count': like_count,
+        })
+
+    return video_details
+
+
+
 
 
 def store(request, category_slug=None):
@@ -56,12 +114,18 @@ def product_detail(request, category_slug, product_slug):
         orderproduct = None
         
     reviews = ReviewRating.objects.filter(product_id=single_product.id, status=True)
+    # Get video details for the product
+    search_query = f"{single_product.product_name} review"
+    video_details = get_video_details(search_query)
 
+    
     context = {
         'single_product': single_product,
         'in_cart'       : in_cart,
         'orderproduct': orderproduct,
         'reviews': reviews,
+        'video_details': video_details,  # Add this to your context
+
     }
     return render(request, 'store/product_details.html', context)
 
