@@ -60,7 +60,9 @@
 
 
 <!-- New Section -->
-<section id="new" class="w-100">
+<section id="new" class="w-100  pt-3">
+    <h1 class="text-center" style="font-weight:800;">New In Our Store</h1>
+    <hr class="rounded mx-auto">
     <div class="row p-0 m-0">
         {% for product in products|dictsortreversed:"modified_date"|slice:":3" %}
             <div class="one col-lg-4 col-md-12 col-sm-12 p-0">
