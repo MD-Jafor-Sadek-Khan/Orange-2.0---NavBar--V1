@@ -48,6 +48,27 @@
 
 <style>
 
+      /* Add this CSS code to your stylesheet or within a <style> tag in your HTML */
+        .truncate-text {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 100%; /* Adjust the max-width as needed */
+          position: relative;
+      }
+  
+      .truncate-text:hover::before {
+          content: attr(data-title);
+          position: absolute;
+          background-color: rgba(0, 0, 0, 0.7);
+          color: white;
+          padding: 5px;
+          border-radius: 5px;
+          white-space: normal;
+          max-width: none;
+          z-index: 9999;
+      }
+
   
   .sticky-navbar {
     position: fixed;
