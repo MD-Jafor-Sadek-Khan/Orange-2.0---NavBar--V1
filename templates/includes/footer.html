@@ -53,7 +53,7 @@
             <h5 class="pb-2">Featured</h5>
             <div class="featured-products-container">
 				{% for product in products|dictsortreversed:"modified_date"|slice:":5" %}
-					<a href="{{product.get_url}}"><img class="img-fluid featured-product img-fluid w-25 h-100 m-2" src="{{ product.images.url }}" /></a>
+					<a href="{{product.get_url}}"><img class="img-fluid featured-product img-fluid  h-100 m-2" src="{{ product.images.url }}" /></a>
 			{% endfor %}
             </div>
           </div>

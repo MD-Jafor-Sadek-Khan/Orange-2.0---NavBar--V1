@@ -721,16 +721,17 @@ th:last-child{
     font-weight: 900;
 }
 /* CSS for the featured products grid */
+/* CSS for the featured products grid */
 .featured-products-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 columns with equal width */
-    gap: 10px; /* Adjust the gap between grid items as needed */
+ /* Adjust the gap between grid items as needed */
 }
 
 /* Style for individual featured product images */
 .featured-product {
-    width: 100%; /* Ensure images take up the full column width */
-    max-width: 100%; /* Responsive sizing */
+    width: max-content; /* Ensure images take up the full column width */
+
     height: auto; /* Maintain image aspect ratio */
 }
 

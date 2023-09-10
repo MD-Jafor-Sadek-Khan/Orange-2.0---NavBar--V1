@@ -17,6 +17,9 @@ import requests
 from bs4 import BeautifulSoup
 
 
+from django.http import JsonResponse
+from django.db.models import Q
+from .forms import PriceFilterForm  # Import the PriceFilterForm
 
 # 1st api key (account:dont know) : AIzaSyBuTUxIT6tPL6uqe2B6RfpPNvoBCyxk6lc
 
@@ -70,34 +73,57 @@ def get_video_details(search_query):
 
 
 
+
+
+
+
+
 def store(request, category_slug=None):
     categories = None
     products = None
 
-    if category_slug != None:
+    # Initialize the PriceFilterForm with the GET parameters
+    price_filter_form = PriceFilterForm(request.GET)
+
+    # Initialize min and max price values
+    min_price = None
+    max_price = None
+
+    # Check if the form is valid
+    if price_filter_form.is_valid():
+        min_price = price_filter_form.cleaned_data.get('min_price')
+        max_price = price_filter_form.cleaned_data.get('max_price')
+    else:
+        min_price = None
+        max_price = None
+
+    if category_slug:
         categories = get_object_or_404(Category, slug=category_slug)
         products = Product.objects.filter(category=categories, is_available=True)
-        
-        paginator = Paginator(products, 3)
-        page = request.GET.get('page')
-        paged_products = paginator.get_page(page)
-        
-        product_count = products.count()
     else:
-        products = Product.objects.all().filter(is_available=True).order_by('id')
-        
-        paginator = Paginator(products, 6)
-        page = request.GET.get('page')
-        paged_products = paginator.get_page(page)
-        
-        product_count = products.count()
+        products = Product.objects.filter(is_available=True)
+
+    # Apply price filtering if min_price and max_price are provided and valid
+    if min_price is not None and max_price is not None:
+        # Convert min_price and max_price to float or handle any validation as needed
+        min_price = float(min_price)
+        max_price = float(max_price)
+
+        # Filter products based on the price range
+        products = products.filter(price__gte=min_price, price__lte=max_price)
+
+    paginator = Paginator(products, 6)
+    page = request.GET.get('page')
+    paged_products = paginator.get_page(page)
+
+    product_count = products.count()
 
     context = {
         'products': paged_products,
         'p_count': product_count,
+        'price_filter_form': price_filter_form,  # Add the form to the context
     }
     return render(request, 'store/store.html', context)
-
 
 def product_detail(request, category_slug, product_slug):
     try:
