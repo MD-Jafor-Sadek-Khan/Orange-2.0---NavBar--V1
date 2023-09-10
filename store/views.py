@@ -97,6 +97,7 @@ def store(request, category_slug=None):
         min_price = price_filter_form.cleaned_data.get('min_price')
         max_price = price_filter_form.cleaned_data.get('max_price')
     else:
+        print("Form is not valid:", price_filter_form.errors)
         min_price = None
         max_price = None
 
