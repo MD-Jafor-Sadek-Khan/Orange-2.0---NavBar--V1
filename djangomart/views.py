@@ -23,6 +23,12 @@ def home(request):
         # Filter and retrieve the top N most sold products of the category
         category_products[category_name] = Product.objects.filter(category__category_name=category_name).order_by('-sold')[:product_count]
 
+    # Calculate average review rating and total review count for each product
+    for product in all_products:
+        product.avg_review_rating = product.averageReview()
+        product.total_review_count = product.countReview()
+        
+        
     context = {
         'category_products': category_products,
         'products': all_products,

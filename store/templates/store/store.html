@@ -1,4 +1,5 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} {% load static %}
+{% block content %}
 <!-- ========================= SECTION PAGETOP ========================= -->
 <section class="section-pagetop bg">
   <div class="container">
@@ -108,17 +109,61 @@
               <figcaption class="info-wrap">
                 <div class="fix-height">
                   <a href="{{ product.get_url }}" class="title"
-                    >{{ product.product_name }}</a
+                    ><span style="font-weight: 800;font-size: 112%;">{{ product.product_name }}</span></a
                   >
-                  <div class="price-wrap mt-2">
-                    <span class="price">$ {{ product.price }}</span>
-                  </div>
-                  {{review.review}}
+
                   <!-- price-wrap.// -->
                 </div>
+                <div class="mb-2">
+                  <div class="price-wrap d-flex justify-content-between align-items-center">
+                    <span class="price">Price: <span style="color: black;font-weight: 600;">$</span><span style="font-weight: 800;color:black"> {{ product.price }}</span></span>
+                    <span style="color: black;">
+                      {% if product.stock <= 0 %}
+                          <span style="font-weight: 800; color: red;">Out of Stock&nbsp;</span>
+                      {% else %}
+                          Stock: <span style="font-weight: 800;">{{ product.stock }}&nbsp;</span>
+                      {% endif %}
+                  </span>
+                  </div>
+                  {{product.reviews}}
+                </div>
+                
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="rating-star">
+                      <span>
+                        <i
+                        class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-half-o {% endif %}"
+                        aria-hidden="true"
+                      ></i>
+                      <i
+                        class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-half-o {% endif %}"
+                        aria-hidden="true"
+                      ></i>
+                      <i
+                        class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-half-o {% endif %}"
+                        aria-hidden="true"
+                      ></i>
+                      <i
+                        class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-half-o {% endif %}"
+                        aria-hidden="true"
+                      ></i>
+                      <i
+                        class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-half-o {% endif %}"
+                        aria-hidden="true"
+                      ></i>
+    
+                  </div>
+                  <p style="font-weight: 800;color:black;">&nbsp;&nbsp;{{product.averageReview}}</p>
+                  </div>
+                    <!-- More rating stars... -->
+              <span><span style="font-weight: 600;color:#282727;">Reviews:&nbsp;</span><span style="font-weight: 800;color:black;">{{product.countReview}}&nbsp;</span></span>
+            </span>
+                </div>
+
                 <a
                   href="{{ product.get_url }}"
-                  class="btn btn-block btn-primary"
+                  class="btn btn-block custom-button mt-4"
                   >View Details
                 </a>
               </figcaption>

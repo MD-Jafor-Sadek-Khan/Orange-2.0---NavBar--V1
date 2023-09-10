@@ -1,6 +1,6 @@
 import requests
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product, ReviewRating
+from store.models import Product, ReviewRating
 from category.models import Category
 from cart.models import CartItem
 from django.db.models import Q
@@ -20,6 +20,9 @@ from bs4 import BeautifulSoup
 from django.http import JsonResponse
 from django.db.models import Q
 from .forms import PriceFilterForm  # Import the PriceFilterForm
+
+from django.db.models import Avg  # Add this line to import Avg
+
 
 # 1st api key (account:dont know) : AIzaSyBuTUxIT6tPL6uqe2B6RfpPNvoBCyxk6lc
 
@@ -112,16 +115,29 @@ def store(request, category_slug=None):
         # Filter products based on the price range
         products = products.filter(price__gte=min_price, price__lte=max_price)
 
+
+    # Initialize an empty dictionary to store average ratings for each product
+    product_average_ratings = {}
+
+    for product in products:
+        # Retrieve the average rating for the current product
+        average_rating = ReviewRating.objects.filter(product_id=product.id, status=True).aggregate(avg_rating=Avg('rating'))['avg_rating']
+        product_average_ratings[product.id] = average_rating  # Store average rating in the dictionary
+
+    
+    
     paginator = Paginator(products, 6)
     page = request.GET.get('page')
     paged_products = paginator.get_page(page)
 
     product_count = products.count()
-
+    
     context = {
         'products': paged_products,
         'p_count': product_count,
         'price_filter_form': price_filter_form,  # Add the form to the context
+        'product_average_ratings': product_average_ratings,  # Add the dictionary to the context
+
     }
     return render(request, 'store/store.html', context)
 
