@@ -30,7 +30,7 @@ from django.db.models import Avg  # Add this line to import Avg
 
 def get_video_details(search_query):
     base_url = f"https://www.googleapis.com/youtube/v3/search"
-    api_key = "y"  # Replace with your actual API key
+    api_key = "AIzaSyDeZJsnOcb5sgBHZIVF43da9pSCDUPLAso"  # Replace with your actual API key
 
     params = {
         'part': 'snippet',
