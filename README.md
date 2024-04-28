@@ -63,4 +63,4 @@ Before you begin, ensure you have the following installed on your system:
 
 ## Support
 
-If you encounter any issues or have questions, feel free to reach out to the project maintainers at [rksadeck@gmail.com](mailto:rksadeck@gmail.com).
+If you encounter any issues or have questions, feel free to reach out to me at [rksadeck@gmail.com](mailto:rksadeck@gmail.com).
