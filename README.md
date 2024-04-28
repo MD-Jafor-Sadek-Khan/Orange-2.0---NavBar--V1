@@ -13,7 +13,7 @@ Before you begin, ensure you have the following installed on your system:
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/<username>/Orange-Website-in-Django.git
+   git clone https://github.com/MD-Jafor-Sadek-Khan/Orange-Website-in-Django.git
    cd Orange-Website-in-Django
    ```
 
