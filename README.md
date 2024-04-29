@@ -68,6 +68,7 @@ Before you begin, ensure you have the following installed on your system:
 
 - To stop the development server, press `CTRL + BREAK`.
 - Use `deactivate` command to exit the virtual environment when you're done.
+- When Signing Up please check you Spam Folder for the Verification Email.
 
 ## Support
 
