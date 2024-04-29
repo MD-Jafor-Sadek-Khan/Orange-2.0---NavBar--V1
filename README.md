@@ -56,13 +56,13 @@ Before you begin, ensure you have the following installed on your system:
   python -m pip install beautifulsoup4
   ```
 
-- **Install Django Template Extension if on VScode**
-  Here are the Details of the said Extension:
-  -Name: Django Template
-  -Id: bibhasdn.django-html
-  -Description: Django template language support for Visual Studio Code
-  -Publisher: bibhasdn
-  -VS Marketplace Link: [https://marketplace.visualstudio.com/items?itemName=bibhasdn.django-html](https://marketplace.visualstudio.com/items?itemName=bibhasdn.django-html)
+- **Install Django Template Extension for VS Code:**
+  If you're using Visual Studio Code, install the Django Template extension for better support:
+  - **Name:** Django Template
+  - **Id:** bibhasdn.django-html
+  - **Description:** Django template language support for Visual Studio Code
+  - **Publisher:** bibhasdn
+  - **VS Marketplace Link:** [Django Template Extension](https://marketplace.visualstudio.com/items?itemName=bibhasdn.django-html)
 
 ## Usage
 
