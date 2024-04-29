@@ -1,4 +1,4 @@
-# Orange Website in Django Installation Guide
+# Orange E-Commerce Website Installation Guide
 
 This guide provides step-by-step instructions to set up the Orange Website project, built using Django framework, on your local machine.
 
